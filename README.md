@@ -1,7 +1,5 @@
----
-title: "Getting and Cleaning Data - course project"
-output: html_document
----
+Getting and Cleaning Data - course project README
+---------------------------------------------------
 
 This project is the course project of the MOOC (massive open online course) [Getting and Cleaning Data](https://www.coursera.org/course/getdata) which is offered by the [Johns Hopkins Bloomberg School of Public Health](http://www.jhsph.edu/) and distributed via [Coursera](https://www.coursera.org/). It takes the [Human Activity Recognition Using Smartphones Data Set](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones) from the UCI Machine Learning Repository and transforms the data into a tidy data set. That data set is written into the file **tidy-dataset.txt**.
 

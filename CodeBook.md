@@ -1,4 +1,2 @@
----
-title: "CodeBook.md"
-output: html_document
----
+Getting and Cleaning Data - course project CodeBook
+---------------------------------------------------
