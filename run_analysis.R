@@ -16,6 +16,8 @@ features <- gsub("[-,]", "_", features)
 # translate leading t character into the word "time" and every leading f
 # character into the word "frequency"
 features <- gsub("^f", "frequency_", gsub("^t", "time_", features))
+# fix "bodybody" typos
+features <- gsub("BodyBody", "Body", features)
 
 # 2. step: merge the training and the test sets and subset the relevant
 #          fields (i.e. the means and standard deviations)
@@ -30,9 +32,8 @@ X <- rbind(trainX, testX)
 # set the variable names for the merged data set to the transformed variable
 # names from step 1
 names(X) <- features
-# subset the relevant fields - i.e. only those whose name consists of the word
-# mean or whose name contains an abbreviation of standard deviation (std or
-# dev)
+# subset the relevant fields - i.e. only those whose name contains either the
+# word mean or an abbreviation of standard deviation (std or dev)
 relevantAttributes <- grep("(mean|std|dev)", features)
 meanAndStdDev <- X[, relevantAttributes]
 
@@ -61,13 +62,13 @@ Y <- c(trainY, testY)
 # 5. step: merge the features, subjects and activities and translate the
 #          activity_id's into descriptive activity labels
 
-# merge the results of the steps 2, 3, and 4 column-wise - i. place the
+# merge the results of the steps 2, 3, and 4 column-wise - i.e. place the
 # activities as a new column after the subjects and the features as new
 # columns after the activities
 data <- cbind(subject_id = subject, activity_id = Y, meanAndStdDev)
-# read the activity labels - they are located in a simple text file consisting
-# of two fields separated by a blank (" ") with the first field being the
-# activity_id and the second field being the activity name
+# read the activity label descriptions - they are located in a simple text file
+# consisting of two fields separated by a blank (" ") with the first field
+# being the activity_id and the second field being the activity name
 activities <- read.table (
     file      = "UCI HAR Dataset/activity_labels.txt",
     header    = FALSE, sep = " ",
@@ -91,7 +92,7 @@ dataMelt <- melt (
 # recast the melted data set - group by the activity and by the subject_id and
 # aggregate the measure variables by taking their mean
 means <- dcast(dataMelt, activity + subject_id ~ variable, mean)
-# rename all the feature fields by adding a leading average_ to each features
+# rename all the feature fields by adding a leading average_ to each feature
 # field name
 names(means) <- c (
     ids,
